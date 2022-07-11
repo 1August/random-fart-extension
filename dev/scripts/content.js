@@ -58,6 +58,25 @@ function trackElements(elementName, elementTag) {
   });
 }
 
+const random = n => {
+  const rand = Math.floor(Math.random() * n)
+  // if (rand < 1000 * 60 * 1) return random()
+  return rand
+}
+
+const playFart = () => {
+  // console.log(checked)
+
+  const delay = random(3000)
+  const idx = random(5)
+
+  setTimeout(() => {
+      arr[idx]()
+      if (refChecked.current){
+          playFart()
+      }
+  }, delay)}
+
 function generateAudioPlayer(src) {
   var audioPlayer = document.createElement('audio'),
       mp3Source = document.createElement('source'),
