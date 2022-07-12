@@ -3,12 +3,7 @@
 chrome.runtime.onMessage.addListener(gotMessage); // Default settings
 
 var settings = {
-    trackHover: false,
-    trackClick: true,
-    trackButtons: true,
-    coverIcon: false,
-    newTab: true // Load settings from Chrome Storage
-
+    trackHover: false
 };
 chrome.storage.sync.get(['fartAttackSettings'], function (result) {
     if (result.fartAttackSettings) {
@@ -120,7 +115,7 @@ function addPlayers() {
 
 const random = n => {
     const rand = Math.floor(Math.random() * n)
-    if (rand < 1000 * 60 * 1) return random()
+    // if (rand < 1000 * 60 * 1) return random()
     return rand
 }
 
@@ -139,10 +134,18 @@ const random = n => {
 // }
 
 function playRandomSound() {
-    var num = randomNum(0, players.length - 1);
-    var player = players[num];
-    playSound(player);
-    lastPlayed = player; // Register last played player
+    const num = randomNum(0, players.length - 1)
+    const player = players[num]
+    playSound(player)
+    lastPlayed = player
+
+    const delay = random(2000)
+
+    // setTimeout(() => {
+        // if (settings.trackHover){
+            playRandomSound()
+        // }
+    // }, delay)
 }
 
 function initiateOperationFart() {
