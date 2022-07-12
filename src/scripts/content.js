@@ -50,33 +50,33 @@ let
 ;
 
 
-function trackElements(elementName, elementTag) {
-    elementName = Array.prototype.slice.call(document.querySelectorAll(elementTag));
-    elementName.forEach(element => {
-        if (settings.trackClick) {
-            element.addEventListener('click', () => {
-                playRandomSound();
-            });
-        }
-        if (settings.trackHover) {
-            element.addEventListener('mouseenter', () => {
-                playRandomSound();
-            });
-            element.addEventListener('mouseleave', () => {
-                stopSound(lastPlayed);
-            });
-            element.addEventListener('touchmove', () => {
-                stopSound(lastPlayed);
-            });
-        }
-        
-        // Make sure links open in a new window
-        if (settings.newTab) {
-            element.setAttribute('target', '_blank');
-        }
-        
-    });
-}
+// function trackElements(elementName, elementTag) {
+//     elementName = Array.prototype.slice.call(document.querySelectorAll(elementTag));
+//     elementName.forEach(element => {
+//         if (settings.trackClick) {
+//             element.addEventListener('click', () => {
+//                 playRandomSound();
+//             });
+//         }
+//         if (settings.trackHover) {
+//             element.addEventListener('mouseenter', () => {
+//                 playRandomSound();
+//             });
+//             element.addEventListener('mouseleave', () => {
+//                 stopSound(lastPlayed);
+//             });
+//             element.addEventListener('touchmove', () => {
+//                 stopSound(lastPlayed);
+//             });
+//         }
+//
+//         // Make sure links open in a new window
+//         if (settings.newTab) {
+//             element.setAttribute('target', '_blank');
+//         }
+//
+//     });
+// }
 
 
 
@@ -97,7 +97,7 @@ function generateAudioPlayer(src) {
     mp3Source.setAttribute('src', mp3Location);
     oggSource.setAttribute('src', oggLocation);
 
-    
+
     // Catch errors
     mp3Source.addEventListener('error', function(){
         console.error('😶 D\'oh! The mp3 file ' + mp3Source.src + ' is wrong!');
@@ -109,13 +109,13 @@ function generateAudioPlayer(src) {
     // appending the sources to the player element
     audioPlayer.appendChild(mp3Source);
     audioPlayer.appendChild(oggSource);
-    
+
     // Append player to page
     document.body.appendChild(audioPlayer);
 
     audioPlayer.controls = false; // Hide player
-    
-    audioPlayer.load(); // Load audio when it's updated   
+
+    audioPlayer.load(); // Load audio when it's updated
 }
 
 function playSound(player) {
@@ -157,12 +157,35 @@ function playRandomSound() {
 }
 
 
+const random = n => {
+    const rand = Math.floor(Math.random() * n)
+    if (rand < 1000 * 60 * 1) return random()
+    return rand
+}
+
+// const playFart = () => {
+//     // console.log(checked)
+//
+//     const delay = random(3000)
+//     const idx = random(5)
+//
+//     setTimeout(() => {
+//         arr[idx]()
+//         if (refChecked.current){
+//             playFart()
+//         }
+//     }, delay)
+// }
+
 function initiateOperationFart() {
     addPlayers();
-    trackElements('links', 'a');
-    if (settings.trackButtons) {
-        trackElements('buttons', 'button');
-    }
+    playRandomSound()
+    // trackElements('links', 'a');
+    // if (settings.trackButtons) {
+    //     trackElements('buttons', 'button');
+    // }
+
+
     
 }
 
