@@ -58,3 +58,7 @@
     transition: .4s;
     border-radius: 50%;
 }
+
+label{
+    color: #ffffff;
+}

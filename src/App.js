@@ -12,6 +12,7 @@ import audio3 from './assets/audio/prod_sounds_mp3_204918.mp3'
 import audio4 from './assets/audio/prod_sounds_mp3_204959.mp3'
 import audio5 from './assets/audio/prod_sounds_mp3_205008.mp3'
 
+import {myFunc} from './background/index'
 
 const App = () => {
     // States
@@ -26,7 +27,7 @@ const App = () => {
     // Functions
     const random = n => {
         const rand = Math.floor(Math.random() * n)
-        if (rand < 1000 * 60 * 1) return random()
+        // if (rand < 1000 * 60 * 1) return random()
         return rand
     }
 
@@ -35,6 +36,10 @@ const App = () => {
         // if (checked) playFart()
         // else setChecked(false)
     }
+
+    useEffect(()=>{
+        myFunc()
+    }, [])
 
     useEffect(() => {
         if (!checked) return

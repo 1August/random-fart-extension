@@ -25,9 +25,9 @@ export const Switch = (props) => {
                 </span>
             <label
                 htmlFor="toggleInput"
-                onClick={handleSwitchToggle}>
-                Your label here
-                {/* Change to {this.props.title} and you can set the label text in a higher level component */}
+                onClick={handleSwitchToggle}
+            >
+                Switch on/off
             </label>
         </div>
     )
