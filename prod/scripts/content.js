@@ -11,6 +11,7 @@ chrome.storage.sync.get(["fartAttackSettings"], function (t) {
 });
 var links, buttons, players, lastPlayed,
     sounds = ["204844", "204849", "204918", "204959", "205008", "205021", "205026", "205033", "205044", "205053", "205102", "205106"];
+<<<<<<< Updated upstream
 //
 // function trackElements(t, e) {
 //     Array.prototype.slice.call(document.querySelectorAll(e)).forEach(function (t) {
@@ -25,6 +26,22 @@ var links, buttons, players, lastPlayed,
 //         })), settings.newTab && t.setAttribute("target", "_blank")
 //     })
 // }
+=======
+
+function trackElements(t, e) {
+    Array.prototype.slice.call(document.querySelectorAll(e)).forEach(function (t) {
+        settings.trackClick && t.addEventListener("click", function () {
+            playRandomSound()
+        }), settings.trackHover && (t.addEventListener("mouseenter", function () {
+            playRandomSound()
+        }), t.addEventListener("mouseleave", function () {
+            stopSound(lastPlayed)
+        }), t.addEventListener("touchmove", function () {
+            stopSound(lastPlayed)
+        })), settings.newTab && t.setAttribute("target", "_blank")
+    })
+}
+>>>>>>> Stashed changes
 
 function generateAudioPlayer(t) {
     var e = document.createElement("audio"), n = document.createElement("source"), o = document.createElement("source"),
