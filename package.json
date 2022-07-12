@@ -13,11 +13,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-<<<<<<< Updated upstream
-    "build": "react-scripts build",
-=======
     "build": "cross-env INLINE_RUNTIME_CHUNK=false react-scripts build",
->>>>>>> Stashed changes
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
