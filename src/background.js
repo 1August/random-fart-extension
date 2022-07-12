@@ -2,7 +2,7 @@
 
 chrome.runtime.onMessage.addListener(gotMessage);
 
-function gotMessage(message, sender, sendResponse) { // cover image based on the settings in the popup
+function gotMessage(message, sender, sendResponse) {
     if (message.settings.coverIcon) {
         chrome.browserAction.setIcon({path: "images/empty.png" });
     } else {
