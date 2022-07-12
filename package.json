@@ -6,7 +6,7 @@
   "scripts": {
     "build": "NODE_ENV=production gulp build",
     "watch": "gulp watch",
-    "dev": "NODE_ENV=production gulp watch"
+    "dev": "set NODE_ENV=production gulp watch"
   },
   "keywords": [],
   "author": "",
