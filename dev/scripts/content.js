@@ -155,7 +155,7 @@ function initiateOperationFart() {
     // if (settings.trackButtons) {
     //     trackElements('buttons', 'button');
     // }
-    playRandomSound()
+    // playRandomSound()
 }
 
 //# sourceMappingURL=content.js.map
