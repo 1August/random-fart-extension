@@ -34,12 +34,17 @@ chrome.storage.sync.get(['fartAttackSettings'], function (result) {
 }); // List button actions
 // Track Hover
 
-trackHover.addEventListener('input', function () {
-  if (trackHover.checked) {
+
+trackHover.addEventListener('change', function () {
+  // playRandomSound()
+  // if (trackHover.checked) {
     settings.trackHover = trackHover.checked;
-  } else {
-    settings.trackHover = trackHover.checked;
-  }
+    // playRandomSound()
+    // console.log('111')
+  // } else {
+  //   settings.trackHover = trackHover.checked;
+  //   playRandomSound()
+  // }
 
   updateSettings();
   sendSettings();
@@ -63,6 +68,7 @@ trackButtons.addEventListener('input', function () {
     settings.trackButtons = trackButtons.checked;
   } else {
     settings.trackButtons = trackButtons.checked;
+    // playRandomSound()
   }
 
   updateSettings();
@@ -94,11 +100,11 @@ newTab.addEventListener('input', function () {
 }); // Update settings and save it to Chrome Storage
 
 function updateSettings() {
-  settings.trackHover = trackHover.checked;
-  settings.trackClick = trackClick.checked;
-  settings.trackButtons = trackButtons.checked;
-  settings.coverIcon = coverIcon.checked;
-  settings.newTab = newTab.checked;
+  // settings.trackHover = trackHover.checked;
+  // settings.trackClick = trackClick.checked;
+  // settings.trackButtons = trackButtons.checked;
+  // settings.coverIcon = coverIcon.checked;
+  // settings.newTab = newTab.checked;
   chrome.storage.sync.set({
     fartAttackSettings: settings
   }, function () {

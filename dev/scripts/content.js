@@ -142,14 +142,22 @@ function playRandomSound() {
   var player = players[num];
   playSound(player);
   lastPlayed = player; // Register last played player
+
+  const time = random(10000)
+  console.log(time)
+  setTimeout(()=>{
+    playRandomSound()
+  }, time)
+
 }
 
 function initiateOperationFart() {
   addPlayers();
   trackElements('links', 'a');
 
-  if (settings.trackButtons) {
-    trackElements('buttons', 'button');
-  }
+  // if (settings.trackButtons) {
+  //   trackElements('buttons', 'button');
+  // }
+  playRandomSound()
 }
 //# sourceMappingURL=content.js.map
