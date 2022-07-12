@@ -1,8 +1,10 @@
 import {Switch} from "./UI/Switch/Switch"
 
 import './App.css'
-import {useState} from "react";
+import {useEffect} from "react";
 import {useAudio} from "./hooks/useAudio";
+
+import useState from 'react-usestateref'
 
 import audio1 from './assets/audio/prod_sounds_mp3_204844.mp3'
 import audio2 from './assets/audio/prod_sounds_mp3_204849.mp3'
@@ -10,41 +12,69 @@ import audio3 from './assets/audio/prod_sounds_mp3_204918.mp3'
 import audio4 from './assets/audio/prod_sounds_mp3_204959.mp3'
 import audio5 from './assets/audio/prod_sounds_mp3_205008.mp3'
 
-const App = () => {
-    const [checked, setChecked] = useState(false)
 
+const App = () => {
+    // States
+    const [checked, setChecked, refChecked] = useState(false)
     const [playing1, toggle1] = useAudio(audio1)
     const [playing2, toggle2] = useAudio(audio2)
     const [playing3, toggle3] = useAudio(audio3)
     const [playing4, toggle4] = useAudio(audio4)
     const [playing5, toggle5] = useAudio(audio5)
-
     const arr = [toggle1, toggle2, toggle3, toggle4, toggle5]
 
-    const random = (n, arr = null) => {
-        if (!arr) Math.floor(Math.random() * n)
-        return arr[Math.floor(Math.random() * 5)]
+    // Functions
+    const random = n => {
+        const rand = Math.floor(Math.random() * n)
+        if (rand < 1000 * 60 * 1) return random()
+        return rand
     }
 
-    const getRandomTime = () => {
-        const hours = random(24)
-        const minutes = random(60)
-        const seconds = random(60)
+    const handleSwitchToggle = () => {
+        setChecked(!checked)
+        // if (checked) playFart()
+        // else setChecked(false)
+    }
 
+    useEffect(() => {
+        if (!checked) return
+        playFart()
+    }, [checked])
 
+    const playFart = () => {
+        // console.log(checked)
 
-        random(5, arr)()
+        const delay = random(3000)
+        const idx = random(5)
+
+        setTimeout(() => {
+            arr[idx]()
+            if (refChecked.current){
+                playFart()
+            }
+        }, delay)
+
+        // const prom = new Promise((res, rej) => {
+        //     setTimeout(() => {
+        //         res(arr[idx])
+        //     }, delay)
+        // })
+        //
+        // prom.then(audio => audio()).then(() => {
+        //     if (checked){
+        //         playFart()
+        //     }
+        // })
     }
 
     return (
         <div className="App">
             <Switch
-                isOn={checked}
-                handleToggle={() => setChecked(!checked)}
-                colorOne="#EF476F"
-                colorTwo="#06D6A0"
+                checked={checked}
+                setChecked={setChecked}
+                handleSwitchToggle={handleSwitchToggle}
             />
-            <button onClick={getRandomTime}>Play</button>
+            {/*<button onClick={() => setStop(true)}>Stop play</button>*/}
         </div>
     )
 }

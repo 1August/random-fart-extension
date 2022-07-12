@@ -1,22 +1,34 @@
 import './Switch.css'
+import {useState} from "react";
 
-export const Switch = ({ isOn, handleToggle, colorOne, colorTwo }) => {
+export const Switch = (props) => {
+    const {
+        checked,
+        setChecked,
+        handleSwitchToggle
+    } = props
+
     return (
-        <>
-            <input
-                checked={isOn}
-                onChange={handleToggle}
-                className="switch-checkbox"
-                id={`switch`}
-                type="checkbox"
-            />
+        <div className="switch">
+                <span>
+                  <input
+                      type="checkbox"
+                      id="toggleInput"
+                      checked={checked}
+                      onChange={handleSwitchToggle}
+                  />
+                  <button
+                      className="slider"
+                      type="button"
+                      onClick={handleSwitchToggle}>
+                  </button>
+                </span>
             <label
-                style={{ background: isOn ? colorOne : colorTwo }}
-                className="switch-label"
-                htmlFor={`switch`}
-            >
-                <span className={`switch-button`} />
+                htmlFor="toggleInput"
+                onClick={handleSwitchToggle}>
+                Your label here
+                {/* Change to {this.props.title} and you can set the label text in a higher level component */}
             </label>
-        </>
+        </div>
     )
 }
