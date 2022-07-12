@@ -3,7 +3,6 @@
 chrome.runtime.onMessage.addListener(gotMessage);
 
 function gotMessage(message, sender, sendResponse) {
-  // cover image based on the settings in the popup
   if (message.settings.coverIcon) {
     chrome.browserAction.setIcon({
       path: "images/empty.png"
@@ -14,4 +13,3 @@ function gotMessage(message, sender, sendResponse) {
     });
   }
 }
-//# sourceMappingURL=background.js.map
