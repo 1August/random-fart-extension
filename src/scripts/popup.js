@@ -1,150 +1,83 @@
+"use strict";
+
 // Default Settings
-let settings = {
-    trackHover: false,
-    trackClick: true,
-    trackButtons: true,
-    coverIcon: false,
-    newTab: true
-}
+var settings = {
+    trackHover: false
+};
+var trackHover = document.querySelector('#track_hover')
+var settingsSaved = document.querySelector('.settings_saved'); // Load settings
 
-let trackHover = document.querySelector('#track_hover');
-let trackClick = document.querySelector('#track_click');
-let trackButtons = document.querySelector('#track_buttons');
-let coverIcon = document.querySelector('#cover_icon');
-let newTab= document.querySelector('#new_tab');
-let settingsSaved = document.querySelector('.settings_saved');
-
-
-
-// Load settings
 function loadPopupSettings() {
-    trackHover.checked = settings.trackHover;
-    trackClick.checked = settings.trackClick;
-    trackButtons.checked = settings.trackButtons;
-    coverIcon.checked = settings.coverIcon;
-    newTab.checked = settings.newTab;
-}
+    trackHover.checked = settings.trackHover
+} // Check if settings is available in Chrome Storage and put in settings
 
-// Check if settings is available in Chrome Storage and put in settings
-chrome.storage.sync.get(['fartAttackSettings'], function(result) {
+
+chrome.storage.sync.get(['fartAttackSettings'], function (result) {
     if (result.fartAttackSettings) {
         settings = result.fartAttackSettings;
-    }
-    // Load settings once the settings are loaded from storage
+    } // Load settings once the settings are loaded from storage
+
     loadPopupSettings();
-});
-
-
-
-
-
-// List button actions
-
+}); // List button actions
 // Track Hover
-trackHover.addEventListener('input', function(){
+
+trackHover.addEventListener('input', function () {
+    playRandomSound()
+    console.log(trackHover.checked)
     if (trackHover.checked) {
         settings.trackHover = trackHover.checked;
     } else {
         settings.trackHover = trackHover.checked;
     }
+
     updateSettings();
     sendSettings();
     showSettingsSaved();
-});
+}); // Track Click
 
-// Track Click
-trackClick.addEventListener('input', function(){
-    if (trackClick.checked) {
-        settings.trackClick = trackClick.checked;
-    } else {
-        settings.trackClick = trackClick.checked;
-    }
-    updateSettings();
-    sendSettings();
-    showSettingsSaved();
-});
-
-// Track Buttons
-trackButtons.addEventListener('input', function(){
-    if (trackButtons.checked) {
-        settings.trackButtons = trackButtons.checked;
-    } else {
-        settings.trackButtons = trackButtons.checked;
-    }
-    updateSettings();
-    sendSettings();
-    showSettingsSaved();
-});
-
-// Hide Icon
-coverIcon.addEventListener('input', function(){
-    if (coverIcon.checked) {
-        settings.coverIcon = coverIcon.checked;
-    } else {
-        settings.coverIcon = coverIcon.checked;
-    }
-    updateSettings();
-    sendSettings();
-});
-
-// New Tab
-newTab.addEventListener('input', function(){
-    if (newTab.checked) {
-        settings.newTab = newTab.checked;
-    } else {
-        settings.newTab = newTab.checked;
-    }
-    updateSettings();
-    sendSettings();
-    showSettingsSaved();
-});
-
-
-
-// Update settings and save it to Chrome Storage
 function updateSettings() {
     settings.trackHover = trackHover.checked;
-    settings.trackClick = trackClick.checked;
-    settings.trackButtons = trackButtons.checked;
-    settings.coverIcon = coverIcon.checked;
-    settings.newTab = newTab.checked;
-
-    chrome.storage.sync.set({fartAttackSettings: settings}, function() {
+    chrome.storage.sync.set({
+        fartAttackSettings: settings
+    }, function () {
         console.log('🍑💨 Fart Attack settings saved in Chrome!');
         console.log(settings);
     });
-}
+} // Toggle Class
 
-// Toggle Class
+
 function toggleClass(element, className) {
     element.classList.toggle(className);
 }
 
+var timerSettingsSaved;
 
-let timerSettingsSaved;
 function showSettingsSaved() {
     settingsSaved.style.display = 'block';
     clearInterval(timerSettingsSaved);
     timerSettingsSaved = setTimeout(hideSettingsSaved, 1500);
 }
+
 function hideSettingsSaved() {
     settingsSaved.style.display = 'none';
     clearInterval(timerSettingsSaved);
 }
+
 settingsSaved.addEventListener('click', hideSettingsSaved);
-
-
-
 
 function sendSettings() {
     // Get current tab
-    let params = {
+    var params = {
         active: true,
         currentWindow: true
-    }
+    };
     chrome.tabs.query(params, gotTab);
+
     function gotTab(tab) {
         chrome.tabs.sendMessage(tab[0].id, settings);
-        chrome.runtime.sendMessage({settings});
+        chrome.runtime.sendMessage({
+            settings: settings
+        });
     }
 }
+//# sourceMappingURL=popup.js.map
