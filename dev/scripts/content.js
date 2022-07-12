@@ -119,7 +119,6 @@ function playSound(player) {
 }
 
 function stopSound(player) {
-  // check if player exists, the check if the sound already played before stopping it
   if (player && player.currentTime !== 0) {
     player.pause();
     player.currentTime = 0; // reset to beginning
@@ -143,8 +142,7 @@ function playRandomSound() {
   playSound(player);
   lastPlayed = player; // Register last played player
 
-  const time = random(10000)
-  console.log(time)
+  const time = randomNum(600_000, 1_800_000) // 10 minute, 30 minute
   setTimeout(()=>{
     playRandomSound()
   }, time)
