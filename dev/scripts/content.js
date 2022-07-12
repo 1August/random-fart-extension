@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 chrome.runtime.onMessage.addListener(gotMessage); // Default settings
 
