@@ -1,5 +1,6 @@
 "use strict";
 
+// Default Settings
 var settings = {
   trackHover: false,
   trackClick: true,
@@ -12,7 +13,7 @@ var trackClick = document.querySelector('#track_click');
 var trackButtons = document.querySelector('#track_buttons');
 var coverIcon = document.querySelector('#cover_icon');
 var newTab = document.querySelector('#new_tab');
-var settingsSaved = document.querySelector('.settings_saved'); 
+var settingsSaved = document.querySelector('.settings_saved'); // Load settings
 
 function loadPopupSettings() {
   trackHover.checked = settings.trackHover;
@@ -20,35 +21,35 @@ function loadPopupSettings() {
   trackButtons.checked = settings.trackButtons;
   coverIcon.checked = settings.coverIcon;
   newTab.checked = settings.newTab;
-}
+} // Check if settings is available in Chrome Storage and put in settings
+
 
 chrome.storage.sync.get(['fartAttackSettings'], function (result) {
   if (result.fartAttackSettings) {
     settings = result.fartAttackSettings;
-  } 
+  } // Load settings once the settings are loaded from storage
+
 
   loadPopupSettings();
-<<<<<<< Updated upstream
 }); // List button actions
 // Track Hover
 
-trackHover.addEventListener('input', function () {
-  if (trackHover.checked) {
-    settings.trackHover = trackHover.checked;
-  } else {
-    settings.trackHover = trackHover.checked;
-  }
-=======
-}); 
 
 trackHover.addEventListener('change', function () {
-  settings.trackHover = trackHover.checked;
->>>>>>> Stashed changes
+  // playRandomSound()
+  // if (trackHover.checked) {
+    settings.trackHover = trackHover.checked;
+    // playRandomSound()
+    // console.log('111')
+  // } else {
+  //   settings.trackHover = trackHover.checked;
+  //   playRandomSound()
+  // }
 
   updateSettings();
   sendSettings();
   showSettingsSaved();
-});
+}); // Track Click
 
 trackClick.addEventListener('input', function () {
   if (trackClick.checked) {
@@ -60,19 +61,20 @@ trackClick.addEventListener('input', function () {
   updateSettings();
   sendSettings();
   showSettingsSaved();
-}); 
+}); // Track Buttons
 
 trackButtons.addEventListener('input', function () {
   if (trackButtons.checked) {
     settings.trackButtons = trackButtons.checked;
   } else {
     settings.trackButtons = trackButtons.checked;
+    // playRandomSound()
   }
 
   updateSettings();
   sendSettings();
   showSettingsSaved();
-}); 
+}); // Hide Icon
 
 coverIcon.addEventListener('input', function () {
   if (coverIcon.checked) {
@@ -83,7 +85,7 @@ coverIcon.addEventListener('input', function () {
 
   updateSettings();
   sendSettings();
-}); 
+}); // New Tab
 
 newTab.addEventListener('input', function () {
   if (newTab.checked) {
@@ -95,24 +97,22 @@ newTab.addEventListener('input', function () {
   updateSettings();
   sendSettings();
   showSettingsSaved();
-}); 
+}); // Update settings and save it to Chrome Storage
 
 function updateSettings() {
-<<<<<<< Updated upstream
-  settings.trackHover = trackHover.checked;
-  settings.trackClick = trackClick.checked;
-  settings.trackButtons = trackButtons.checked;
-  settings.coverIcon = coverIcon.checked;
-  settings.newTab = newTab.checked;
-=======
->>>>>>> Stashed changes
+  // settings.trackHover = trackHover.checked;
+  // settings.trackClick = trackClick.checked;
+  // settings.trackButtons = trackButtons.checked;
+  // settings.coverIcon = coverIcon.checked;
+  // settings.newTab = newTab.checked;
   chrome.storage.sync.set({
     fartAttackSettings: settings
   }, function () {
-    console.log('🍑💨 Fart settings saved in Chrome!');
+    console.log('🍑💨 Fart Attack settings saved in Chrome!');
     console.log(settings);
   });
-}
+} // Toggle Class
+
 
 function toggleClass(element, className) {
   element.classList.toggle(className);
@@ -134,6 +134,7 @@ function hideSettingsSaved() {
 settingsSaved.addEventListener('click', hideSettingsSaved);
 
 function sendSettings() {
+  // Get current tab
   var params = {
     active: true,
     currentWindow: true
@@ -147,3 +148,4 @@ function sendSettings() {
     });
   }
 }
+//# sourceMappingURL=popup.js.map

@@ -14,14 +14,12 @@ const
     browserSync = require('browser-sync');
 
 
-// Check if the NODE_ENV command is 'production' or not & store a boolean.
 const isPROD = process.env.NODE_ENV === 'production';
 
 const jsFiles = [
     './src/scripts/*.js'
 ]
 
-// Dev and production directories
 const
     devDir = './dev/',
     prodDir = './prod/'
@@ -41,15 +39,11 @@ serveFiles = () => {
         });
 }
 
-
-
-// BrowserSync Reload
 browserSyncReload = (done) => {
     browserSync.reload();
     done();
 }
 
-// JS tasks
 jsTasks = () => {
     return gulp
         .src(jsFiles)
@@ -64,7 +58,6 @@ jsTasks = () => {
                 )
 }
 
-// CSS tasks
 cssTasks = () => {
     const postcssPlugins = [
         autoprefixer({
@@ -81,7 +74,6 @@ cssTasks = () => {
             );
 }
 
-// HTML tasks
 htmlTasks = () => {
     return gulp
     .src('./src/*.html')
@@ -96,8 +88,6 @@ htmlTasks = () => {
     );
 }
 
-
-// Sounds Taks
 soundFilesTasks = () => {
     return gulp
     .src('./src/sounds/**/*')
@@ -106,7 +96,6 @@ soundFilesTasks = () => {
     );
 }
 
-// JSON files tasks
 jsonFilesTasks = () => {
     return gulp
     .src('./src/*.json')
@@ -115,7 +104,6 @@ jsonFilesTasks = () => {
     );
 }
 
-// Optimize images
 imagesTasks = () => {
     return gulp.src('./src/images/**/*')
                 .pipe(
@@ -126,7 +114,6 @@ imagesTasks = () => {
                 );
 }
 
-// Delete Dist folder
 delDir = () => {
     return del([
         gulpif(!isPROD, devDir + 'images/', prodDir)
@@ -140,9 +127,6 @@ logShit = () => {
     console.log('💩 shit');
 }
 
-
-
-// Watch tasks
 watchFiles = () => {
     gulp.watch('./src/*.html', htmlTasks);
     gulp.watch('./src/*.css', cssTasks);
@@ -150,12 +134,11 @@ watchFiles = () => {
     gulp.watch('./src/images/**/*', imagesTasks);
     gulp.watch('./src/sounds/**/*', soundFilesTasks);
     gulp.watch('./src/*.json', jsonFilesTasks)
-    gulp.watch( // Reload page when files changes
-        gulpif(!isPROD, devDir + '**/*', prodDir + '**/*'), // (if/else) Watch prod or dev folder
+    gulp.watch(
+        gulpif(!isPROD, devDir + '**/*', prodDir + '**/*'),
         browserSyncReload); 
 }
 
-// All tasks
 gulp.task('serve', serveFiles);
 gulp.task('js', jsTasks);
 gulp.task('css', cssTasks);
@@ -164,8 +147,6 @@ gulp.task('images', imagesTasks);
 gulp.task('sounds', soundFilesTasks);
 gulp.task('jsonFiles', jsonFilesTasks);
 
-
-// Main watch task
 gulp.task('watch', gulp.series(
     delDir,
     gulp.parallel('html', 'css', 'js', 'images', 'sounds', 'jsonFiles'),
@@ -173,10 +154,8 @@ gulp.task('watch', gulp.series(
     )
 );
 
-// Defaul Gulp task
 gulp.task('default', gulp.parallel('watch'));
 
-// Build website to publish
 gulp.task('build', gulp.parallel(
     'html', 'css', 'js', 'images', 'sounds', 'jsonFiles'
     )
