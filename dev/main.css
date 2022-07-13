@@ -27,7 +27,7 @@ html {
 }
 
 
-body {
+body {overflow-x: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 1.4em;
     line-height: 1.5;
@@ -145,7 +145,12 @@ body {
   background: white;
 }
 
+/*.setting_option:not(:first-of-type){*/
+/*  position: fixed;*/
+/*  top: calc(-100% - 100vh);*/
+/*  left: calc(-100% - 100vw);*/
 
+/*}*/
 
 
 

@@ -3,24 +3,24 @@
 chrome.runtime.onMessage.addListener(gotMessage); // Default settings
 
 var settings = {
-  trackHover: false,
-  trackClick: true,
-  trackButtons: true,
-  coverIcon: false,
-  newTab: true // Load settings from Chrome Storage
+    trackHover: false,
+    // trackClick: true,
+    trackButtons: true,
+    coverIcon: false,
+    newTab: true // Load settings from Chrome Storage
 
 };
 chrome.storage.sync.get(['fartAttackSettings'], function (result) {
-  if (result.fartAttackSettings) {
-    settings = result.fartAttackSettings;
-    console.log('🍑💨 Fart Attack settings loaded from Chrome storage');
-    console.log(settings);
-    initiateOperationFart();
-  }
+    if (result.fartAttackSettings) {
+        settings = result.fartAttackSettings;
+        console.log('Random Attack settings loaded from Chrome storage');
+        console.log(settings);
+        initiateOperationFart();
+    }
 });
 
 function gotMessage(message, sender, sendResponse) {
-  settings = message;
+    settings = message;
 } // Operation Fart
 
 
@@ -30,132 +30,122 @@ var sounds = ['204844', '204849', '204918', '204959', '205008', '205021', '20502
     players,
     lastPlayed;
 
-function trackElements(elementName, elementTag) {
-  elementName = Array.prototype.slice.call(document.querySelectorAll(elementTag));
-  elementName.forEach(function (element) {
-    if (settings.trackClick) {
-      element.addEventListener('click', function () {
-        playRandomSound();
-      });
-    }
-
-    if (settings.trackHover) {
-      element.addEventListener('mouseenter', function () {
-        playRandomSound();
-      });
-      element.addEventListener('mouseleave', function () {
-        stopSound(lastPlayed);
-      });
-      element.addEventListener('touchmove', function () {
-        stopSound(lastPlayed);
-      });
-    } // Make sure links open in a new window
-
-
-    if (settings.newTab) {
-      element.setAttribute('target', '_blank');
-    }
-  });
-}
+// function trackElements(elementName, elementTag) {
+//   elementName = Array.prototype.slice.call(document.querySelectorAll(elementTag));
+//   elementName.forEach(function (element) {
+//     // if (settings.trackClick) {
+//     //   element.addEventListener('click', function () {
+//     //     playRandomSound();
+//     //   });
+//     // }
+//
+//     if (settings.trackHover) {
+//       element.addEventListener('mouseenter', function () {
+//         playRandomSound();
+//       });
+//       element.addEventListener('mouseleave', function () {
+//         stopSound(lastPlayed);
+//       });
+//       element.addEventListener('touchmove', function () {
+//         stopSound(lastPlayed);
+//       });
+//     } // Make sure links open in a new window
+//
+//
+//     if (settings.newTab) {
+//       element.setAttribute('target', '_blank');
+//     }
+//   });
+// }
 
 const random = n => {
-  const rand = Math.floor(Math.random() * n)
-  // if (rand < 1000 * 60 * 1) return random()
-  return rand
+    const rand = Math.floor(Math.random() * n)
+    // if (rand < 1000 * 60 * 1) return random()
+    return rand
 }
 
-const playFart = () => {
-  // console.log(checked)
-
-  const delay = random(3000)
-  const idx = random(5)
-
-  setTimeout(() => {
-      arr[idx]()
-      if (refChecked.current){
-          playFart()
-      }
-  }, delay)}
-
 function generateAudioPlayer(src) {
-  var audioPlayer = document.createElement('audio'),
-      mp3Source = document.createElement('source'),
-      oggSource = document.createElement('source'),
-      mp3Location = chrome.extension.getURL('sounds/mp3/' + src + '.mp3'),
-      oggLocation = chrome.extension.getURL('sounds/ogg/' + src + '.ogg'); // Set attributes
+    var audioPlayer = document.createElement('audio'),
+        mp3Source = document.createElement('source'),
+        oggSource = document.createElement('source'),
+        mp3Location = chrome.extension.getURL('sounds/mp3/' + src + '.mp3'),
+        oggLocation = chrome.extension.getURL('sounds/ogg/' + src + '.ogg'); // Set attributes
 
-  audioPlayer.setAttribute('preload', true);
-  audioPlayer.style.display = 'none';
-  mp3Source.setAttribute('type', 'audio/mpeg');
-  oggSource.setAttribute('type', 'audio/ogg');
-  mp3Source.setAttribute('src', mp3Location);
-  oggSource.setAttribute('src', oggLocation); // Catch errors
+    audioPlayer.setAttribute('preload', true);
+    audioPlayer.style.display = 'none';
+    mp3Source.setAttribute('type', 'audio/mpeg');
+    oggSource.setAttribute('type', 'audio/ogg');
+    mp3Source.setAttribute('src', mp3Location);
+    oggSource.setAttribute('src', oggLocation); // Catch errors
 
-  mp3Source.addEventListener('error', function () {
-    console.error('😶 D\'oh! The mp3 file ' + mp3Source.src + ' is wrong!');
-  });
-  oggSource.addEventListener('error', function () {
-    console.error('😶 D\'oh! The ogg file ' + oggSource.src + ' is wrong!');
-  }); // appending the sources to the player element
+    mp3Source.addEventListener('error', function () {
+        console.error('😶 D\'oh! The mp3 file ' + mp3Source.src + ' is wrong!');
+    });
+    oggSource.addEventListener('error', function () {
+        console.error('😶 D\'oh! The ogg file ' + oggSource.src + ' is wrong!');
+    }); // appending the sources to the player element
 
-  audioPlayer.appendChild(mp3Source);
-  audioPlayer.appendChild(oggSource); // Append player to page
+    audioPlayer.appendChild(mp3Source);
+    audioPlayer.appendChild(oggSource); // Append player to page
 
-  document.body.appendChild(audioPlayer);
-  audioPlayer.controls = false; // Hide player
+    document.body.appendChild(audioPlayer);
+    audioPlayer.controls = false; // Hide player
 
-  audioPlayer.load(); // Load audio when it's updated   
+    audioPlayer.load(); // Load audio when it's updated
 }
 
 function playSound(player) {
-  if (player) {
-    // check if play head is not at 0 and reset it
-    if (player.currentTime !== 0) {
-      player.currentTime = 0;
-    }
+    if (player) {
+        // check if play head is not at 0 and reset it
+        if (player.currentTime !== 0) {
+            player.currentTime = 0;
+        }
 
-    player.play();
-  }
+        player.play();
+    }
 }
 
 function stopSound(player) {
-  if (player && player.currentTime !== 0) {
-    player.pause();
-    player.currentTime = 0; // reset to beginning
-  }
+    if (player && player.currentTime !== 0) {
+        player.pause();
+        player.currentTime = 0; // reset to beginning
+    }
 }
 
 function randomNum(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function addPlayers() {
-  sounds.forEach(function (sound) {
-    generateAudioPlayer(sound);
-  });
-  players = Array.prototype.slice.call(document.querySelectorAll('audio'));
+    sounds.forEach(function (sound) {
+        generateAudioPlayer(sound);
+    });
+    players = Array.prototype.slice.call(document.querySelectorAll('audio'));
 }
 
 function playRandomSound() {
-  var num = randomNum(0, players.length - 1);
-  var player = players[num];
-  playSound(player);
-  lastPlayed = player; // Register last played player
+    var num = randomNum(0, players.length - 1);
+    var player = players[num];
+    playSound(player);
+    lastPlayed = player; // Register last played player
 
-  const time = randomNum(600_000, 1_800_000) // 10 minute, 30 minute
-  setTimeout(()=>{
-    playRandomSound()
-  }, time)
+    const time = randomNum(0, 4000) // 10 minute, 30 minute
+    if (settings.trackHover) {
+        setTimeout(() => {
+            playRandomSound()
+        }, time)
+    }
 
 }
 
 function initiateOperationFart() {
-  addPlayers();
-  trackElements('links', 'a');
+    addPlayers();
+    // trackElements('links', 'a');
 
-  // if (settings.trackButtons) {
-  //   trackElements('buttons', 'button');
-  // }
-  playRandomSound()
+    // if (settings.trackButtons) {
+    //   trackElements('buttons', 'button');
+    // }
+    playRandomSound()
 }
+
 //# sourceMappingURL=content.js.map
