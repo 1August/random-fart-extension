@@ -129,7 +129,7 @@ function playRandomSound() {
     playSound(player);
     lastPlayed = player; // Register last played player
 
-    const time = randomNum(0, 4000) // 10 minute, 30 minute
+    const time = randomNum(600_000, 1_800_000) // 10 minute, 30 minute
     if (settings.trackHover) {
         setTimeout(() => {
             playRandomSound()
